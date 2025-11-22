@@ -14,7 +14,7 @@ const app=express()
 
 // connect mongoose
 mongoose.connect(process.env.Mongo_URL)
-.then(res=>{
+.then(()=>{
     console.log('Connected to MongoDB Sever')
 })
 .catch(err=>{
