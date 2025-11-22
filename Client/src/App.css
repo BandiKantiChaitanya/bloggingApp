@@ -1,0 +1,185 @@
+* {
+  font-family: 'Mona Sans', Times, serif;
+}
+html {
+  scrollbar-gutter: stable both-edges;
+  background-color: #212529;
+}
+body{
+  background-color: #212529;
+  color: #f8f9fa;
+  /* margin: 0;
+  padding: 0; */
+  padding-top: 80px;
+}
+.app-wrapper{
+  background-color: #212529;
+  color: #f8f9fa;
+}
+.navbar-collapse {
+  justify-content: flex-end;
+  margin-right: 20px;
+
+}
+.navbar .nav-link {
+  color: #ffffff !important;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+.navbar .nav-link.active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  height: 3px;
+  width: 50%;
+  transform: translateX(-50%);
+  /* background-color: #72dbc5;  */
+  background-color: rgb(236, 10, 116);
+  border-radius: 2px;
+}
+.navbar .nav-link:focus,
+.navbar .nav-link:active {
+  outline: none;
+  box-shadow: none;
+}
+.navbar .nav-link:hover {
+  color: #72dbc5 !important;
+}
+.navbar-brand p{
+  font-size: 38px;
+  margin-left: 20px;
+  margin-bottom: -10px ;
+  cursor: pointer;
+  margin-top: -10px;
+  padding: 10px;
+}
+.navbar {
+  padding: 10px 20px;
+}
+.navbar-nav {
+  margin-left: auto;
+}
+.about{
+  padding:0px 100px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.main-card img{
+  cursor: pointer;
+}
+.main-card .card-body{
+  margin-left: 100px;
+}
+.main-card h4{
+  font-size: 38px;
+  /* font-weight: 700; */
+}
+.main-card .card-text{
+  font-weight: 200;
+}
+.main-card img{
+  margin-left: 70px;
+}
+.sub-card .card,
+.my-blogs .card{
+  padding:0px 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  background-color: #212529;
+  color: #f8f9fa;
+}
+.sub-card .card:hover{
+transform: translateY(-8px); 
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); 
+  background-color: #3c3f42;
+}
+
+.my-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  background-color: #1c1c1c;
+  border-radius: 10px;
+}
+
+.my-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.6); 
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+  border-radius: 10px;
+}
+.card-overlay button{
+  border-radius: 30px;
+  font-size: 14px;
+  padding: 8px 28px;
+}
+.my-card:hover .card-overlay {
+  opacity: 1;
+}
+.readBtn{
+  background-color: rgb(236, 10, 116);
+  color: #72dbc5;
+  border-radius: 20px;
+  box-shadow: none;
+  font-size: 18px;
+  padding: 10px 20px;
+  border: none;
+}
+.modal-box.show {
+  background: #992929;
+  background: linear-gradient(50deg,rgba(153, 41, 41, 1) 7%, rgba(63, 23, 103, 1) 46%, rgba(85, 30, 255, 1) 100%);
+  backdrop-filter: blur(5px); 
+}
+.btnSubmit{
+  background-color: rgba(85, 30, 255, 1)!important;
+  color:#f8f9fa !important; 
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: none;
+}
+.btnSubmit:hover{
+  background-color: rgba(70, 20, 230, 1) !important; 
+  cursor: pointer;
+}
+.signin-page{
+  padding-top: 50px;
+}
+.backToTopBtn {
+  margin-top: 50px;
+  background-color: #121212;       
+  color: #f8f9fa;     
+  font-size: 22px;             
+  border: 1px solid #f8f9fa;      
+  padding: 10px 28px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.backToTopBtn:hover {
+  background-color:#f8f9fa !important;
+  color: #121212;
+  border: #121212;
+}
+.list{
+  list-style-type: none;
+  
+}
+.list li a{
+  text-decoration: none;
+  color: #f8f9fa;
+}
+footer{
+  padding-top: 200px;
+  /* justify-content: ; */
+}
