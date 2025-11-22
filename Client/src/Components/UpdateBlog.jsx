@@ -28,7 +28,8 @@ function UpdateBlog({formData, setFormData, err,setErr,id,onUpdate}) {
            if (formData.image && typeof formData.image !== 'string') {
             form.append('image', formData.image);
           }
-            const response=await fetch(`http://localhost:3000/api/editBlog/${id}`,{
+          const API_URL = import.meta.env.VITE_API_URL;
+            const response=await fetch(`${API_URL}/api/editBlog/${id}`,{
                 method:'PUT',
                 credentials:'include',
                 body:form

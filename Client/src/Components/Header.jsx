@@ -22,7 +22,8 @@ function Header() {
       dangerMode: true,
     }).then((willLogout) => {
       if (willLogout) {
-        fetch('http://localhost:3000/api/logout',{
+        const API_URL = import.meta.env.VITE_API_URL;
+        fetch(`${API_URL}/api/logout`,{
           credentials:"include"
         })
         .then((res)=>{

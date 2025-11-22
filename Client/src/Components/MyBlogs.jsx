@@ -11,9 +11,10 @@ function MyBlogs() {
    let [blogs,setBlogs]=useState([])
    let [userLogin, ]=useContext(LoginContext)
    let navigate=useNavigate()
+   const API_URL = import.meta.env.VITE_API_URL;
 
     useEffect(()=>{
-        fetch('http://localhost:3000/api/myBlogs',{
+        fetch(`${API_URL}/api/myBlogs`,{
           credentials: 'include'
         })
       .then(res=>res.json())
@@ -37,7 +38,7 @@ function MyBlogs() {
     const [currentId, setCurrentId] = useState(null);
 
     function handleEdit(id){
-      fetch(`http://localhost:3000/api/getBlog/${id}`,{
+      fetch(`${API_URL}/api/getBlog/${id}`,{
         credentials: 'include'
       })
       .then(res=>res.json())
@@ -64,7 +65,7 @@ function MyBlogs() {
   }
 
     function handleDelete(id){
-      fetch(`http://localhost:3000/api/delBlog/${id}`,{
+      fetch(`${API_URL}/api/delBlog/${id}`,{
         method:'DELETE',
         credentials:'include'
       })

@@ -9,7 +9,8 @@ function Blog({currentId}) {
 
         async function handleBlog(){
             try {
-                 const response= await fetch(`http://localhost:3000/api/getBlog/${currentId}`,{
+                const API_URL = import.meta.env.VITE_API_URL;
+                 const response= await fetch(`${API_URL}/api/getBlog/${currentId}`,{
                     method:'GET',
                     credentials:'include'
                 })

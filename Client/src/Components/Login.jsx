@@ -23,7 +23,8 @@ function Login() {
    async function handleSubmit(e){
     e.preventDefault()
     try {
-        const response=await fetch('http://localhost:3000/api/login',{
+        const API_URL = import.meta.env.VITE_API_URL;
+        const response=await fetch(`${API_URL}/api/login`,{
             method:'POST',
             headers:{
                 'Content-type':'application/JSON'

@@ -35,7 +35,8 @@ function AddBlogs() {
       form.append('title', formData.title);
       form.append('body', formData.body);
       form.append('image', formData.image);
-      const response=await fetch('http://localhost:3000/api/createBlog',{
+      const API_URL = import.meta.env.VITE_API_URL;
+      const response=await fetch(`${API_URL}/api/createBlog`,{
         method:'POST',
         credentials: 'include',
         body:form

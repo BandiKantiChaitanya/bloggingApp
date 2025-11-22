@@ -7,7 +7,8 @@ function Home() {
   let [currentId,setCurrentId]=useState('')
   let [blogs,setBlogs]=useState([])
   useEffect(()=>{
-      fetch('http://localhost:3000/api/allBlogs')
+    const API_URL = import.meta.env.VITE_API_URL;
+      fetch(`${API_URL}/api/allBlogs`)
     .then(res=>res.json())
     .then(data=>{
        const sortedBlogs = data.data.sort(
