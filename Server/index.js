@@ -6,6 +6,7 @@ const router = require('./Routes/UserRoutes')
 const session=require('express-session')
 const cors=require('cors')
 const blogRouter = require('./Routes/BlogRoutes')
+const MongoStore = require('connect-mongo'); 
 require('dotenv').config()
 
 
@@ -30,19 +31,22 @@ app.use(cors({
 app.use(express.json())
 
 
-
+app.set('trust proxy', 1); // OR use proxy: true in session
 
 app.use(session({
-  secret: process.env.SECRET_KEY, // Use a strong, unique secret in real apps
-  resave: false,             // Don't save session if nothing changed
-  saveUninitialized: false,  // Only save sessions that have meaningful data
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: process.env.Mongo_URL }), // optional but recommended
   cookie: {
-    secure: false,           // Set to true if using HTTPS
-    httpOnly: true,  
-    sameSite: 'lax',// Prevents client-side JS from accessing cookies
-    maxAge: 1000 * 60 * 60 * 24 // 1 day (in ms)
-  }
-}))
+    secure: process.env.NODE_ENV === "production", // true in prod
+    httpOnly: true,
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    maxAge: 24 * 60 * 60 * 1000
+  },
+  proxy: true
+}));
+
 
 
 app.use('/api',router)
