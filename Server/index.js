@@ -22,7 +22,7 @@ mongoose.connect(process.env.Mongo_URL)
 })
 
 app.use(cors({
-    origin:true,
+    origin:'https://bloggingappbackend-2ueb.onrender.com',
     credentials:true
 }))
 
