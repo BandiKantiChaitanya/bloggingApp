@@ -85,7 +85,7 @@ function MyBlogs() {
       
       {
         userLogin?(
-          (blogs ?? []).map(blog=>(
+          blogs.map(blog=>(
             
           <div key={blog._id} className='col-12 col-sm-6 col-md-4 mb-4 my-blogs '>
               <div className="card bg-dark text-light border-0 h-100 position-relative  overflow-hidden  my-card">
