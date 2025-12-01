@@ -33,13 +33,13 @@ app.use(express.json())
 
 
 app.use(session({
-  secret: 'your-secret-key', // Use a strong, unique secret in real apps
+  secret: process.env.SECRET_KEY, // Use a strong, unique secret in real apps
   resave: false,             // Don't save session if nothing changed
   saveUninitialized: false,  // Only save sessions that have meaningful data
   cookie: {
-    secure: true,           // Set to true if using HTTPS
+    secure: false,           // Set to true if using HTTPS
     httpOnly: true,  
-    sameSite: 'none',// Prevents client-side JS from accessing cookies
+    sameSite: 'lax',// Prevents client-side JS from accessing cookies
     maxAge: 1000 * 60 * 60 * 24 // 1 day (in ms)
   }
 }))
