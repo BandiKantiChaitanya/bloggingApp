@@ -37,8 +37,9 @@ app.use(session({
   resave: false,             // Don't save session if nothing changed
   saveUninitialized: false,  // Only save sessions that have meaningful data
   cookie: {
-    secure: false,           // Set to true if using HTTPS
-    httpOnly: true,          // Prevents client-side JS from accessing cookies
+    secure: true,           // Set to true if using HTTPS
+    httpOnly: true,  
+    sameSite: 'none',// Prevents client-side JS from accessing cookies
     maxAge: 1000 * 60 * 60 * 24 // 1 day (in ms)
   }
 }))
