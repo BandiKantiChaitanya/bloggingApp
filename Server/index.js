@@ -6,7 +6,6 @@ const userRouter = require('./Routes/UserRoutes')
 const session=require('express-session')
 const cors=require('cors')
 const blogRouter = require('./Routes/BlogRoutes')
-const shortUrls = require('./Models/ShortUrl')
 require('dotenv').config()
 
 
@@ -22,8 +21,10 @@ mongoose.connect(process.env.Mongo_URL)
     console.log('Error occured',err)
 })
 
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173'
+
 app.use(cors({
-    origin:true,
+    origin:CLIENT_URL,
     credentials:true
 }))
 
@@ -31,7 +32,7 @@ app.use(cors({
 app.use(express.json())
 
 
-
+app.set('trust proxy', 1);
 
 app.use(session({
   secret: process.env.SECRET_KEY, // Use a strong, unique secret in real apps
@@ -39,6 +40,8 @@ app.use(session({
   saveUninitialized: false,  // Only save sessions that have meaningful data
   cookie: {
     secure: true,           // Set to true if using HTTPS
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     httpOnly: true,          // Prevents client-side JS from accessing cookies
     maxAge: 1000 * 60 * 60 * 24 // 1 day (in ms)
   }
@@ -62,30 +65,6 @@ app.get('/api/me', (req, res) => {
   }
 });
 
-
-app.get('/allurls',(req,res)=>{
-  try {
-    const data=shortUrls.find()
-    res.status(200).json({message:'all links',data})
-  } catch (error) {
-    res.status(500).json({message:'Server Error'})
-  }
-})
-
-
-app.post('/createurl',async (req,res)=>{
-  try {
-    const {orignalUrl,shortCode}=req.body
-    const newUrl=new shortUrls({
-      originalUrl,
-      shortCode
-    })
-    await newUrl.save()
-    res.status(200).json({message:'url created'})
-  } catch (error) {
-    res.status(500).json({message:'server failed',})
-  }
-})
 
 
 
