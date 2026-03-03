@@ -2,10 +2,11 @@
 const express=require('express')
 const base64=require('base-64')
 const mongoose=require('mongoose')
-const router = require('./Routes/UserRoutes')
+const userRouter = require('./Routes/UserRoutes')
 const session=require('express-session')
 const cors=require('cors')
 const blogRouter = require('./Routes/BlogRoutes')
+const shortUrls = require('./Models/ShortUrl')
 require('dotenv').config()
 
 
@@ -44,11 +45,47 @@ app.use(session({
 }))
 
 
-app.use('/api',router)
+
+app.use('/api',userRouter)
 
 app.use('/api',blogRouter)
 
+app.get('/health',(req,res)=>{
+  res.json({status:'ok',timestamp:new Date().toISOString()  })
+})
 
+app.get('/api/me', (req, res) => {
+  if (req.session.userId) {
+    res.json({ user: req.session.userId });
+  } else {
+    res.status(401).json({ message: 'Not logged in' });
+  }
+});
+
+
+app.get('/allurls',(req,res)=>{
+  try {
+    const data=shortUrls.find()
+    res.status(200).json({message:'all links',data})
+  } catch (error) {
+    res.status(500).json({message:'Server Error'})
+  }
+})
+
+
+app.post('/createurl',async (req,res)=>{
+  try {
+    const {orignalUrl,shortCode}=req.body
+    const newUrl=new shortUrls({
+      originalUrl,
+      shortCode
+    })
+    await newUrl.save()
+    res.status(200).json({message:'url created'})
+  } catch (error) {
+    res.status(500).json({message:'server failed',})
+  }
+})
 
 
 
