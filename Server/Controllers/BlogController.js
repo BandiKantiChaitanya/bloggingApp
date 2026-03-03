@@ -1,4 +1,5 @@
 const Blogs = require("../Models/Blog")
+const cloudinary=require('../Utils/cloudinaryConfig')
 
 
 const createBlog= async (req,res)=>{
@@ -14,6 +15,7 @@ const createBlog= async (req,res)=>{
             title,
             body,
             image:req.file.path,
+            imagePublicId: req.file.filename,
             userId
         })
 
@@ -88,18 +90,26 @@ const getBlog=async (req,res)=>{
         res.status(500).json({message:'Error occured in fetching data.Try again later.',err})
     }
 }
-const deleteBlog=(req,res)=>{
+const deleteBlog=async (req,res)=>{
     try{
     const blogId=req.params.id
-    Blogs.findByIdAndDelete(blogId)
-    .then(response=>{
-        res.status(201).json({message:'Blog has been deleted Successfully'})
-    })
-    .catch(err=>{
-        res.status(400).json({message:'Error occured in deleting blog.'})
-    })
+
+    // 1. Find the blog first to get the public_id
+    const blog = await Blogs.findById(blogId);
+
+    if (!blog) return res.status(404).json({ message: 'Blog not found' });
+
+    // 2. Delete image from Cloudinary
+    if (blog.imagePublicId) {
+      await cloudinary.uploader.destroy(blog.imagePublicId); //  this deletes from Cloudinary
+    }
+   
+
+    // 3. Delete blog from MongoDB
+    await Blogs.findByIdAndDelete(blogId);
+    res.status(201).json({message:'Blog has been deleted Successfully'})
     }catch(err){
-        res.status(500).json({message:'Error occured in deleting blog.Try again later.'})
+        res.status(500).json({message:'Error occured in deleting blog.Try again later.',err})
     }
 }
 module.exports={

@@ -19,6 +19,7 @@ const BlogSchema=new Schema({
     //     type:String,
     //     require:true
     // }
+    imagePublicId: String,
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'
