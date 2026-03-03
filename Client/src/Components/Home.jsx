@@ -19,7 +19,16 @@ function Home() {
     })
     .catch(err=>console.log('error occured',err))
   },[])
-if (!blogs || blogs.length === 0) return <p className="text-light bg-dark">Loading blogs...</p>;
+if (!blogs || blogs.length === 0) return (
+    <div className="loading-wrapper bg-dark d-flex justify-content-center align-items-center" style={{ minHeight: '50vh' }}>
+      <div className="text-center">
+        <div className="spinner-border text-light" role="status" style={{ width: '3rem', height: '3rem' }}>
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="text-light mt-3">Loading blogs...</p>
+      </div>
+    </div>
+);
 const [firstBlog, ...otherBlogs] = blogs;
 // console.log(blogs)
 

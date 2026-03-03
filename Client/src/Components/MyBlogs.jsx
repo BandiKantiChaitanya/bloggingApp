@@ -23,9 +23,9 @@ function MyBlogs() {
     },[])
 
     useEffect(()=>{
-      if(!userLogin){
-        navigate('/login')
-      }
+      if (userLogin === false) {
+      navigate('/login');
+    }
     },[userLogin,navigate])
 
 
@@ -79,6 +79,17 @@ function MyBlogs() {
       .catch(err=>console.log('error occured',err))
 
     }
+
+    if (!blogs || blogs.length === 0) return (
+    <div className="loading-wrapper bg-dark d-flex justify-content-center align-items-center" style={{ minHeight: '50vh' }}>
+      <div className="text-center">
+        <div className="spinner-border text-light" role="status" style={{ width: '3rem', height: '3rem' }}>
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="text-light mt-3">Loading blogs...</p>
+      </div>
+    </div>
+)
 
   return (
     <div className="app-wrapper row p-2">
