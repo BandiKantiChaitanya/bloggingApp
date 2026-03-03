@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 function LoginContextProvider({children}) {
   let [userLogin,SetUserLogin]=useState(null)
   const API_BASE = import.meta.env.VITE_API_URL;
-  console.log(userLogin)
 
   useEffect(() => {
     fetch(`${API_BASE}/api/me`, { credentials: 'include' })
