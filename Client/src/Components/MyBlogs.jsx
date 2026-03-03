@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import LoginContext from "../Context/LoginContext"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import UpdateBlog from "./UpdateBlog"
 import { FiEdit2 } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
@@ -12,6 +12,7 @@ function MyBlogs() {
    let [userLogin, ]=useContext(LoginContext)
    let navigate=useNavigate()
    const API_URL = import.meta.env.VITE_API_URL;
+   const location = useLocation()
 
     useEffect(()=>{
         fetch(`${API_URL}/api/myBlogs`,{
@@ -20,7 +21,7 @@ function MyBlogs() {
       .then(res=>res.json())
       .then(data=>{setBlogs(data.data)})
       .catch(err=>console.log('error occured',err))
-    },[])
+    },[location])
 
     useEffect(()=>{
       if (userLogin === false) {
@@ -80,6 +81,7 @@ function MyBlogs() {
 
     }
 
+  
     if (!blogs || blogs.length === 0) return (
     <div className="loading-wrapper bg-dark d-flex justify-content-center align-items-center" style={{ minHeight: '50vh' }}>
       <div className="text-center">
@@ -128,7 +130,6 @@ function MyBlogs() {
           </>
         )
       }
-       
     </div>
   )
 }

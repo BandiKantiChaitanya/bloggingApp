@@ -2,9 +2,12 @@ import React, { useContext, useDebugValue, useEffect, useState } from 'react'
 import LoginContext from '../Context/LoginContext'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { useRef } from 'react'
 
 function AddBlogs() {
   let [userLogin,]=useContext(LoginContext)
+  const imageInputRef = useRef(null);
+  let navigate=useNavigate()
   let [err,setErr]=useState('')
   let [formData,setFormData]=useState({
     title:'',
@@ -50,7 +53,11 @@ function AddBlogs() {
       },5000)
        if (!data.error) {
         // Clear form and close modal
+        setErr('')
         setFormData({ title: '', body: '' ,image:null});
+        if (imageInputRef.current) {
+          imageInputRef.current.value = ''; 
+        }
         const modalInstance = bootstrap.Modal.getInstance(document.getElementById('addBlogModal'));
         modalInstance.hide();
         toast.success('Blog Created successfully')
@@ -62,7 +69,7 @@ function AddBlogs() {
     }
   }
 
-let navigate=useNavigate()
+
 
   useEffect(() => {
     if (!userLogin) {
@@ -115,7 +122,7 @@ let navigate=useNavigate()
                   
                   <div className="mb-3">
                     <label htmlFor="image" className='form-label bg-dark text-white border-light'>Image</label>
-                    <input className='form-control bg-dark text-white border-light' type="file" name="image" id="image" accept='image/*'  onChange={handleImageChange} required/>
+                    <input className='form-control bg-dark text-white border-light' type="file" name="image" id="image" accept='image/*' ref={imageInputRef}  onChange={handleImageChange} required/>
                   </div>
 
                   {err?.message && <p className="text-danger">{err.message}</p>}
